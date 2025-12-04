@@ -63,6 +63,7 @@ List of currently available cloud applications :
 | [PostgreSQL]			| 18.1.1_251112		| db/sql		|
 | [QEMU]				| 10.1.0_250826		| sys/emu		|
 | [SysinternalsSuite]	| 251120			| sys/win		|
+| [Tabula]				| 1.2.1_180604		| doc/pdf_utl	|
 | [yEd]					| 3.25.1_250219		| img/2d/ed		|
 
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
@@ -72,6 +73,7 @@ List of currently available cloud applications :
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
 [QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
+[Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
 
 ## Inner working
