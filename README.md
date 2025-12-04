@@ -58,6 +58,7 @@ List of currently available cloud applications :
 | :---                | :---             | :---          |
 | [Ghostscript]       | 10.06.0_250909   | doc/pdf/cnv   |
 | [jdk]               | 25.0.1_250925    | dev/lng/jar   |
+| [Pandoc]            | 3.8.3_251201     | doc/cnv       |
 | [PostgreSQL]        | 18.1.1_251112    | db/sql        |
 | [Picat]             | 3.9.0_250823     | dev/lng/pi    |
 | [SysinternalsSuite] | 251120           | sys/win       |
@@ -65,6 +66,7 @@ List of currently available cloud applications :
 
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
+[Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
