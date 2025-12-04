@@ -1,6 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto eol=lf
 
+*.{bat,[bB][aA][tT]} text eol=crlf
 *.{cfg,[cC][fF][gG]} text eol=crlf
 *.{cmd,[cC][mM][dD]} text eol=crlf
-*.{bat,[bB][aA][tT]} text eol=crlf
+*.{url,[uU][rR][lL]} text eol=crlf

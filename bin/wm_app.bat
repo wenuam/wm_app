@@ -1,4 +1,5 @@
 @echo off
+if "%~dp0" neq "!wm_guid!\" (set "wm_guid=%tmp%\wm.%~nx0.%~z0" & (if not exist "!wm_guid!\%~nx0" (mkdir "!wm_guid!" 2>nul & find "" /v<"%~f0" >"!wm_guid!\%~nx0")) & call "!wm_guid!\%~nx0" %* & rmdir /s /q "!wm_guid!" 2>nul & exit /b)
 
 rem 'wm_app' toolbox, by wenuam 2025
 rem Run the runner first to set vars
