@@ -360,7 +360,6 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 		where /q "%~2" || %end% 2
 	) else (
 		call :where "" "%~2"
-	ECHO TOTO="!ret!"
 		if "!ret!"=="" %end% 2
 	)
 %end%
@@ -390,7 +389,6 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 		rem Convert to space separated list of paths
 		if "!ret:~0,1!"==";" set "ret=!ret:~1!"
 		if not "!ret!"=="" set "ret=!ret:;= !"
-	ECHO WHERE=!ret!
 	)
 %end%
 
