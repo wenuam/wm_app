@@ -61,6 +61,7 @@ List of currently available cloud applications :
 | [Pandoc]				| 3.8.3_251201		| doc/cnv		|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi	|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql		|
+| [QEMU]				| 10.1.0_250826		| sys/emu		|
 | [SysinternalsSuite]	| 251120			| sys/win		|
 | [yEd]					| 3.25.1_250219		| img/2d/ed		|
 
@@ -69,6 +70,7 @@ List of currently available cloud applications :
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
+[QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
 
