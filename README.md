@@ -59,6 +59,7 @@ List of currently available cloud applications :
 | [Bob]					| 1.7.6_240311		| doc/wiki/tiddly	|
 | [ditaa]				| 0.11.0_180114		| img/2d/gen		|
 | [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		|
+| [Graphviz]			| 14.0.5_251129		| img/2d/gen		|
 | [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		|
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
@@ -74,6 +75,7 @@ List of currently available cloud applications :
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
+[Graphviz]: https://github.com/wenuam/wm_app_img_2d_gen__Graphviz
 [ImageMagick]: https://github.com/wenuam/wm_app_img_2d_gen__ImageMagick
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
