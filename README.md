@@ -70,6 +70,7 @@ List of currently available cloud applications :
 | [QEMU]				| 10.1.0_250826		| sys/emu			|
 | [SysinternalsSuite]	| 251120			| sys/win			|
 | [Tabula]				| 1.2.1_180604		| doc/pdf_utl		|
+| [Tesseract]			| 5.5.0_241111		| img/ocr			|
 | [yEd]					| 3.25.1_250219		| img/2d/ed			|
 
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
@@ -86,6 +87,7 @@ List of currently available cloud applications :
 [QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
 [Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
+[Tesseract]: https://github.com/wenuam/wm_app_img_ocr__Tesseract
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
 
 ## Inner working
