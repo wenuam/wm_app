@@ -64,6 +64,7 @@ List of currently available cloud applications :
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi		|
+| [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
 | [QEMU]				| 10.1.0_250826		| sys/emu			|
 | [SysinternalsSuite]	| 251120			| sys/win			|
@@ -78,6 +79,7 @@ List of currently available cloud applications :
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
+[PlantUML]: https://github.com/wenuam/wm_app_img_2d_gen__PlantUML
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
 [QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
