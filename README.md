@@ -57,6 +57,7 @@ List of currently available cloud applications :
 | Application			| Version and date	| Type and path		|
 | :---					| :---				| :---				|
 | [Bob]					| 1.7.6_240311		| doc/wiki/tiddly	|
+| [Dia]					| 0.97.2_120119		| img/2d/ed			|
 | [ditaa]				| 0.11.0_180114		| img/2d/gen		|
 | [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		|
 | [Graphviz]			| 14.0.5_251129		| img/2d/gen		|
@@ -74,6 +75,7 @@ List of currently available cloud applications :
 | [yEd]					| 3.25.1_250219		| img/2d/ed			|
 
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
+[Dia]: https://github.com/wenuam/wm_app_img_2d_ed__Dia
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
 [Graphviz]: https://github.com/wenuam/wm_app_img_2d_gen__Graphviz
