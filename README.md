@@ -62,6 +62,7 @@ List of currently available cloud applications :
 | [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		|
 | [Graphviz]			| 14.0.5_251129		| img/2d/gen		|
 | [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		|
+| [Inkscape]			| 1.4.2_250513		| img/2d/ed			|
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
 | [Miktex]				| 24.1_240128		| doc/latex/gen		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
@@ -81,6 +82,7 @@ List of currently available cloud applications :
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
 [Graphviz]: https://github.com/wenuam/wm_app_img_2d_gen__Graphviz
 [ImageMagick]: https://github.com/wenuam/wm_app_img_2d_gen__ImageMagick
+[Inkscape]: https://github.com/wenuam/wm_app_img_2d_ed__Inkscape
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
 [Miktex]: https://github.com/wenuam/wm_app_doc_tex_gen__Miktex
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
