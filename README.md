@@ -59,6 +59,7 @@ List of currently available cloud applications :
 | [Bob]					| 1.7.6_240311		| doc/wiki/tiddly	|
 | [Dia]					| 0.97.2_120119		| img/2d/ed			|
 | [ditaa]				| 0.11.0_180114		| img/2d/gen		|
+| [FreePascal]			| 3.2.2_210519		| dev/lng/pas		|
 | [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		|
 | [Graphviz]			| 14.0.5_251129		| img/2d/gen		|
 | [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		|
@@ -83,6 +84,7 @@ List of currently available cloud applications :
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
 [Dia]: https://github.com/wenuam/wm_app_img_2d_ed__Dia
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
+[FreePascal]: https://github.com/wenuam/wm_app_dev_lng_pas__FreePascal
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
 [Graphviz]: https://github.com/wenuam/wm_app_img_2d_gen__Graphviz
 [ImageMagick]: https://github.com/wenuam/wm_app_img_2d_gen__ImageMagick
