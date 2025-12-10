@@ -66,6 +66,7 @@ List of currently available cloud applications :
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
 | [Miktex]				| 24.1_240128		| doc/latex/gen		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
+| [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
@@ -88,6 +89,7 @@ List of currently available cloud applications :
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
 [Miktex]: https://github.com/wenuam/wm_app_doc_tex_gen__Miktex
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
+[my_basic]: https://github.com/wenuam/wm_app_dev_lng_bas__my_basic
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
 [PlantUML]: https://github.com/wenuam/wm_app_img_2d_gen__PlantUML
