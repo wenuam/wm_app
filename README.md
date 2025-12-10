@@ -79,6 +79,7 @@ List of currently available cloud applications :
 | [Tabula]				| 1.2.1_180604		| doc/pdf_utl		|
 | [Tesseract]			| 5.5.0_241111		| img/ocr			|
 | [vlang]				| 0.4.12_250919		| dev/lng/v			|
+| [WinLibs]				| 15.2.0r4_251202	| dev/lng/cpp		|
 | [yEd]					| 3.25.1_250219		| img/2d/ed			|
 
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
@@ -104,6 +105,7 @@ List of currently available cloud applications :
 [Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
 [Tesseract]: https://github.com/wenuam/wm_app_img_ocr__Tesseract
 [vlang]: https://github.com/wenuam/wm_app_dev_lng_v__vlang
+[WinLibs]: https://github.com/wenuam/wm_app_dev_lng_cpp__WinLibs
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
 
 ## Inner working
