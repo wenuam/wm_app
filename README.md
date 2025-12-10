@@ -64,6 +64,7 @@ List of currently available cloud applications :
 | [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		|
 | [Inkscape]			| 1.4.2_250513		| img/2d/ed			|
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
+| [Lua]					| 5.4.8_250605		| dev/lng/lua		|
 | [Miktex]				| 24.1_240128		| doc/latex/gen		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
@@ -87,6 +88,7 @@ List of currently available cloud applications :
 [ImageMagick]: https://github.com/wenuam/wm_app_img_2d_gen__ImageMagick
 [Inkscape]: https://github.com/wenuam/wm_app_img_2d_ed__Inkscape
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
+[Lua]: https://github.com/wenuam/wm_app_dev_lng_lua__Lua
 [Miktex]: https://github.com/wenuam/wm_app_doc_tex_gen__Miktex
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
 [my_basic]: https://github.com/wenuam/wm_app_dev_lng_bas__my_basic
