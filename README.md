@@ -70,13 +70,14 @@ List of currently available cloud applications :
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
+| [PellesC]				| 13.00_250521		| dev/lng/c			|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
 | [QEMU]				| 10.1.0_250826		| sys/emu			|
 | [StrawberryPerl]		| 5.42.0.1_250801	| dev/lng/pl		|
 | [SysinternalsSuite]	| 251120			| sys/win			|
-| [Tabula]				| 1.2.1_180604		| doc/pdf_utl		|
+| [Tabula]				| 1.2.1_180604		| doc/pdf/utl		|
 | [Tesseract]			| 5.5.0_241111		| img/ocr			|
 | [vlang]				| 0.4.12_250919		| dev/lng/v			|
 | [WinLibs]				| 15.2.0r4_251202	| dev/lng/cpp		|
@@ -96,6 +97,7 @@ List of currently available cloud applications :
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
 [my_basic]: https://github.com/wenuam/wm_app_dev_lng_bas__my_basic
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
+[PellesC]: https://github.com/wenuam/wm_app_dev_lng_c__PellesC
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
 [PlantUML]: https://github.com/wenuam/wm_app_img_2d_gen__PlantUML
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
