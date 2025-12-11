@@ -1,9 +1,14 @@
 # wm_app
 
 <!-- - [Usage](#usage) -->
-<!-- - [Folders](#folders) -->
 <!-- - [Applications](#applications) -->
 <!-- - [Inner working](#inner-working) -->
+<!-- 	- [Folders](#folders) -->
+<!-- 	- [Script](#script) -->
+<!-- 	- [Environment variables](#environment-variables) -->
+<!-- 	- [Configuration file](#configuration-file) -->
+<!-- 	- [Command override](#command-override) -->
+<!-- 	- [Command deprecation](#command-deprecation) -->
 
 <!-- ![wm_app image](./wm_app.png "wm_app image") -->
 <img src="./wm_app.png" alt="wm_app image" width="225" />
@@ -19,7 +24,6 @@ https://github.com/wenuam/wm_app
 [wm_app]: https://github.com/wenuam/wm_app
 
 ## Usage
-<!--a name="usage"/-->
 
 1. Install the latest version of [WinFsp] (you *MUST* have `admin`/`root` rights though)
 1. Clone or download/extract this repository to have access to its whole structure
@@ -32,25 +36,7 @@ Whenever possible, the Linux binaries are available alongside the Windows binair
 
 [WinFsp]: https://github.com/winfsp/winfsp/releases/latest
 
-## Folders
-<!--a name="folders"/-->
-
-Directory tree of a mounted **application** is as follow:
-
-* :file_folder: `%HomeDrive%\Volumes`: all users
-	* :file_folder: **wm_app**
-		* :file_folder: **application**: actual mount point
-			* :file_folder: `version` or `tag`
-				* :hammer_and_wrench: The **application** files...
-* :file_folder: `%AppData%`: user files (Roaming)
-	* :file_folder: **wm_app**
-		* :file_folder: **repository** (complete name starting with "wm_app")
-			* :file_folder: **log**
-				* :file_folder: **%year%-%month%**
-					* :page_with_curl: The `wm_app_*-[version|tag]-%date%_%time%.[stdout|stderr|hubfs].log` files...
-
 ## Applications
-<!--a name="applications"/-->
 
 List of currently available cloud applications :
 
@@ -113,6 +99,22 @@ List of currently available cloud applications :
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
 
 ## Inner working
+
+### Folders
+
+Directory tree of a mounted **application** is as follow:
+
+* :file_folder: `%HomeDrive%\Volumes`: all users
+	* :file_folder: **wm_app**
+		* :file_folder: **application**: actual mount point
+			* :file_folder: `version` or `tag`
+				* :hammer_and_wrench: The **application** files...
+* :file_folder: `%AppData%`: user files (Roaming)
+	* :file_folder: **wm_app**
+		* :file_folder: **repository** (complete name starting with "wm_app")
+			* :file_folder: **log**
+				* :file_folder: **%year%-%month%**
+					* :page_with_curl: The `wm_app_*-[version|tag]-%date%_%time%.[stdout|stderr|hubfs].log` files...
 
 ### Script
 
