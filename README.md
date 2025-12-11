@@ -61,6 +61,7 @@ List of currently available cloud applications :
 | [ditaa]				| 0.11.0_180114		| img/2d/gen		|
 | [FreePascal]			| 3.2.2_210519		| dev/lng/pas		|
 | [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		|
+| [Git]					| 2.52.0_251117		| dev/scm/git		|
 | [Graphviz]			| 14.0.5_251129		| img/2d/gen		|
 | [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		|
 | [Inkscape]			| 1.4.2_250513		| img/2d/ed			|
@@ -88,6 +89,7 @@ List of currently available cloud applications :
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
 [FreePascal]: https://github.com/wenuam/wm_app_dev_lng_pas__FreePascal
 [Ghostscript]: https://github.com/wenuam/wm_app_doc_pdf_cnv__Ghostscript
+[Git]: https://github.com/wenuam/wm_app_dev_scm_git__Git
 [Graphviz]: https://github.com/wenuam/wm_app_img_2d_gen__Graphviz
 [ImageMagick]: https://github.com/wenuam/wm_app_img_2d_gen__ImageMagick
 [Inkscape]: https://github.com/wenuam/wm_app_img_2d_ed__Inkscape
