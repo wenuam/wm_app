@@ -62,6 +62,7 @@ List of currently available cloud applications :
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
 | [QEMU]				| 10.1.0_250826		| sys/emu			|
+| [Racket]				| 9.0.0_251121		| dev/lng/rkt		|
 | [StrawberryPerl]		| 5.42.0.1_250801	| dev/lng/pl		|
 | [SysinternalsSuite]	| 251120			| sys/win			|
 | [Tabula]				| 1.2.1_180604		| doc/pdf/utl		|
@@ -90,6 +91,7 @@ List of currently available cloud applications :
 [PlantUML]: https://github.com/wenuam/wm_app_img_2d_gen__PlantUML
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
 [QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
+[Racket]: https://github.com/wenuam/wm_app_dev_lng_rkt__Racket
 [StrawberryPerl]: https://github.com/wenuam/wm_app_dev_lng_pl__StrawberryPerl
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
 [Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
