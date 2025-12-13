@@ -56,6 +56,7 @@ List of currently available cloud applications :
 | [Miktex]				| 24.1_240128		| doc/latex/gen		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
+| [node]				| 25.2.1_251117		| dev/lng/js		|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
 | [PellesC]				| 13.00_250521		| dev/lng/c			|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi		|
@@ -85,6 +86,7 @@ List of currently available cloud applications :
 [Miktex]: https://github.com/wenuam/wm_app_doc_tex_gen__Miktex
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
 [my_basic]: https://github.com/wenuam/wm_app_dev_lng_bas__my_basic
+[node]: https://github.com/wenuam/wm_app_dev_lng_js__node
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [PellesC]: https://github.com/wenuam/wm_app_dev_lng_c__PellesC
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
