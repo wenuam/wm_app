@@ -59,6 +59,7 @@ List of currently available cloud applications :
 | [node]				| 25.2.1_251117		| dev/lng/js		|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
 | [PellesC]				| 13.00_250521		| dev/lng/c			|
+| [pfm]					| 24X_241121		| sys/win/fs		|
 | [Picat]				| 3.9.0_250823		| dev/lng/pi		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
@@ -89,6 +90,7 @@ List of currently available cloud applications :
 [node]: https://github.com/wenuam/wm_app_dev_lng_js__node
 [Pandoc]: https://github.com/wenuam/wm_app_doc_cnv__Pandoc
 [PellesC]: https://github.com/wenuam/wm_app_dev_lng_c__PellesC
+[pfm]: https://github.com/wenuam/wm_app_sys_win_fs__pfm
 [Picat]: https://github.com/wenuam/wm_app_dev_lng_pi__Picat
 [PlantUML]: https://github.com/wenuam/wm_app_img_2d_gen__PlantUML
 [PostgreSQL]: https://github.com/wenuam/wm_app_db_sql__PostgreSQL
