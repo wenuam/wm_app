@@ -54,6 +54,7 @@ List of currently available cloud applications :
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
 | [Lua]					| 5.4.8_250605		| dev/lng/lua		|
 | [Miktex]				| 24.1_240128		| doc/latex/gen		|
+| [Modula2]				| 0.11.0_180114		| dev/lng/m2		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
 | [node]				| 25.2.1_251117		| dev/lng/js		|
@@ -85,6 +86,7 @@ List of currently available cloud applications :
 [jdk]: https://github.com/wenuam/wm_app_dev_lng_jar__jdk
 [Lua]: https://github.com/wenuam/wm_app_dev_lng_lua__Lua
 [Miktex]: https://github.com/wenuam/wm_app_doc_tex_gen__Miktex
+[Modula2]: https://github.com/wenuam/wm_app_dev_lng_m2__Modula2
 [mscgen]: https://github.com/wenuam/wm_app_img_2d_gen__mscgen
 [my_basic]: https://github.com/wenuam/wm_app_dev_lng_bas__my_basic
 [node]: https://github.com/wenuam/wm_app_dev_lng_js__node
