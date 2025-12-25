@@ -97,7 +97,7 @@ List of currently available cloud applications :
 [QEMU]: https://github.com/wenuam/wm_app_sys_emu__QEMU
 [Racket]: https://github.com/wenuam/wm_app_dev_lng_rkt__Racket
 [StrawberryPerl]: https://github.com/wenuam/wm_app_dev_lng_pl__StrawberryPerl
-[SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win__SysinternalsSuite
+[SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win_utl__SysinternalsSuite
 [Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
 [Tesseract]: https://github.com/wenuam/wm_app_img_ocr__Tesseract
 [vlang]: https://github.com/wenuam/wm_app_dev_lng_v__vlang
