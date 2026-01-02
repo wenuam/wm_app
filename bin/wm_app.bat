@@ -1,10 +1,10 @@
 @echo off
 if "%~dp0" neq "!wm_guid!\" (set "wm_guid=%tmp%\wm.%~nx0.%~z0" & (if not exist "!wm_guid!\%~nx0" (mkdir "!wm_guid!" 2>nul & find "" /v<"%~f0" >"!wm_guid!\%~nx0")) & call "!wm_guid!\%~nx0" %* & rmdir /s /q "!wm_guid!" 2>nul & exit /b)
 
-rem 'wm_app' toolbox, by wenuam 2025
+rem 'wm_app' toolbox, by wenuam 2025-2026
 rem Run the runner first to set vars
 
-	set begin=set "vLvl=^!vLvl^!^!vLvl:~0,1^!" ^&
+	set begin=set "vLvl=^!vLvl^!^!vLvl:~-1^!" ^&
 	set end=set "vLvl=^!vLvl:~0,-1^!" ^& exit /b
 
 if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
@@ -22,14 +22,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	set "sInf=  INFO:" & set "sUse=  USAGE^>"
 	set /a "aDep=-1"
 
-(set lf=^
-%=line feed definition, do NOT indent it=%
-)
-	set "sBlf=Broken line feed definition, script might fail"
-	for /f "delims=" %%n in ("!lf!") do echo %sErr% %sBlf%
-	if "!lf!" neq "!lf:~0,1!" echo %sErr% %sBlf%
-
-	rem Do *NOT* execute 'cWmic' in a 'for /f' context, otherwise you'll get the hidden subprocess' id
+	rem Do *NOT* execute 'cWmic' in a 'for /f' context, otherwise you'll get the hidden subprocess' pid
 	set "cWmic=wmic process where "name='wmic.exe' and commandline like '%%_%%random%%%%random%%%%random%%_%%'" get parentprocessid"
 	set "cLog=%AppData%\%cApp%\%~3\log\%sDate:~0,4%-%sDate:~4,2%"
 	set "cVol=%HomeDrive%\Volumes\%cApp%"
@@ -38,8 +31,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	set "cRep=%~3"
 
 	mkdir "%cLog%" %quiet%
-
-	if defined debug ( set "cDbg=-o debug" ) else ( set "cDbg=" )
+	mkdir "%cVol%" %quiet%
 %end%
 
 :run_prepare %1 self, %2 calling script full name, %3+ calling script parameters (aka %1+)
@@ -96,7 +88,6 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 		rem Check Java archive
 		if /i "!vExt!"==".jar" (
 			if defined where (
-				rem Beware, 'where' is very slow and may even fail on remote mount points
 				for /f "delims=!" %%a in ('where java.exe') do set "vJre=%%~dpa"
 			) else (
 				rem Sturdier yet slower version of 'where'
@@ -146,25 +137,23 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 
 :repo_mount %1 self, %2 repository name
 %begin%
-	set "vExe=%~2" & set "vExe=!vExe:*__=!"
-	set "vVol=%cVol%\!vExe!"
-	rem There is a bug in batch making both 'exist' and '~a' to fail on link
-	set "vDir=" & pushd "!vVol!" 2>nul && popd || set "vDir=1"
-	if defined vDir (
+	set "vVol=%cVol%\%~2"
+	set "vPop=" & pushd "!vVol!" 2>nul && popd || set "vPop=1"
+	if defined vPop (
 		%log% Mount repository ^(in "!vVol!"^)
-		for %%i in (def pid) do del "%cVol%\%~2.%%i*" %fquiet%
-		for %%i in ("!vVol!\..") do mkdir "%%~fi" %quiet%
+		for %%i in (def hub) do del "%cVol%\%~2.%%i*" %fquiet%
 		rem Connect to the repository (versions[/tags/commits] are [hidden] subfolders)
-		set vCmd=!cWmic!^>"%cVol%\%~2.pid"
-		set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\%~2.pid"'^) do set /a vPid=%%a ^) 1^>nul
-REM		set vCmd=!vCmd! ^& title %~2~pid=^^!vPid^^!
-		set vCmd=!vCmd! ^& del "%cVol%\%~2.pid" /f /q !quiet!
-		set vCmd=!vCmd! ^& echo:1^>"%cVol%\%~2.pid_^!vPid^!"
-		set vCmd=!vCmd! ^& "%cHub%" %cDbg% "%cUrl%/%~2" "!vVol!" 1^>"%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log" 2^>^&1
-		set vCmd=!vCmd! ^& del "%cVol%\%~2.pid_^!vPid^!" /f /q !quiet!
-		start "%~2~pid" /b cmd /v:on /c " !vCmd! "
+		set vCmd=!cWmic!^>"%cVol%\%~2.hub"
+		set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\%~2.hub"'^) do set /a vPid=%%a ^) 1^>nul
+REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
+		set vCmd=!vCmd! ^& del "%cVol%\%~2.hub" /f /q !quiet!
+		set vCmd=!vCmd! ^& echo:1^>"%cVol%\%~2.hub_^!vPid^!"
+		set "vDbg=" & if defined debug set "vDbg=-o debug"
+		set vCmd=!vCmd! ^& "%cHub%" !vDbg! "%cUrl%/%~2" "!vVol!" 1^>"%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log" 2^>^&1
+		set vCmd=!vCmd! ^& del "%cVol%\%~2.hub_^!vPid^!" /f /q !quiet!
+		start "%~2~hub" /b cmd /v:on /c " !vCmd! "
 	) else (
-		for %%i in ("def" "pid") do del "%cVol%\%~2.%%i" !fquiet!
+		for %%i in ("def" "hub") do del "%cVol%\%~2.%%i" !fquiet!
 		rem Remove pending deferred unmount (move on top if race condition)
 		for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2.def_*" 2^>nul') do (
 			set "vPid=%%~xi"
@@ -172,7 +161,7 @@ REM		set vCmd=!vCmd! ^& title %~2~pid=^^!vPid^^!
 			del "%cVol%\%%i" !fquiet!
 		)
 		rem Increase refcount
-		for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2.pid_*" 2^>nul') do (
+		for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2.hub_*" 2^>nul') do (
 			set /p vRef=<"%cVol%\%%i"
 			set /a "vRef+=1"
 			echo:!vRef!>"%cVol%\%%i"
@@ -183,24 +172,23 @@ REM		set vCmd=!vCmd! ^& title %~2~pid=^^!vPid^^!
 :repo_mount_loop
 	ping localhost -n 2 %quiet%
 	set /a vCnt-=1
-	rem Check if 'hubfs' exited prematurely (all '.pid' files removed)
-	for /f %%a in ('dir /b "%cVol%\%~2.pid*" 2^>nul ^| find /v /c ""') do set /a vPid=%%a
+	rem Check if 'hubfs' exited prematurely (all '.hub' files removed)
+	for /f %%a in ('dir /b "%cVol%\%~2.hub*" 2^>nul ^| find /v /c ""') do set /a vPid=%%a
 	pushd "!vVol!" 2>nul && popd || if !vPid! gtr 0 goto :repo_mount_loop
 %end%
 
 :repo_unmount %1 self, %2 repository name
 %begin%
-	set "vExe=%~2" & set "vExe=!vExe:*__=!"
-	set "vVol=%cVol%\!vExe!"
+	set "vVol=%cVol%\%~2"
 	rem Decrease refcount
-	for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2.pid_*" 2^>nul') do (
+	for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2*.hub_*" 2^>nul') do (
 		set "vPid=%%~xi"
 		set /p vRef=<"%cVol%\%%i"
 		set /a "vRef-=1"
 		echo:!vRef!>"%cVol%\%%i"
 		if !vRef! leq 0 (
-			%log% Unmount repository ^(in "!vVol!"^)
-			set vCmd=taskkill /f /t /pid !vPid:*.pid_=! !quiet! ^& ping localhost -n 1 !quiet! ^& del "%cVol%\%%i" /f /q !quiet!
+			if "!vPid:~0,4!"==".hub" %log% Unmount repository ^(in "!vVol!"^)
+			set vCmd=taskkill /f /t /pid !vPid:*_=! !quiet! ^& ping localhost -n 1 !quiet! ^& del "%cVol%\%%i" /f /q !quiet!
 			if defined deferred (
 				set /a deferred=!deferred!
 				if !deferred! gtr 0 (
@@ -248,13 +236,12 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 					set /a "aDep+=1" & set "aDep[!aDep!]=!vWid!"
 					rem Don't check version/tag exists, "trust the user"
 					if "!vVer!"=="" set "ret=!vWid!\latest"
-					call :expand "" "%cVol%\!ret:*__=!"
+					call :expand "" "%cVol%\!ret!"
 				)
 				if /i "!vVar!"=="path" (
 					if "!ret:~-1!"=="\" set "ret=!ret:~0,-1!"
-					rem There is a bug in batch making both 'exist' and '~a' to fail on link
-					set "vDir=" & pushd "!ret!" 2>nul && popd || set "vDir=1"
-					if defined vDir (
+					set "vPop=" & pushd "!ret!" 2>nul && popd || set "vPop=1"
+					if defined vPop (
 						rem Executable (relative, absolute or mounted repository)
 						for %%g in ("!ret!") do (
 							set "vDir=%%~dpg" & if "!vDir:~-1!"=="\" set "vDir=!vDir:~0,-1!"
@@ -265,7 +252,6 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 						if not "!vExt!"=="" (
 							%log% %sInf% Checking for available "!vExe!!vExt!" to supersede...
 							if defined where (
-								rem Beware, 'where' is very slow on remote mount points
 								for /f "delims=" %%a in ('where $path:"!vExe!!vExt!" 2^>nul') do (
 									set "vExe=%%~dpa" & if "!vExe:~-1!"=="\" set "vExe=!vExe:~0,-1!"
 									if not "!vDir!"=="!vExe!" (
@@ -356,7 +342,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 
 :dependency_check %1 self, %2 dependency to check
 %begin% %log% Check dependency exist ^("%~2"^)
-	rem Beware, 'where' is very slow on remote mount points
+	rem Beware, 'where' is very slow and may even fail on link/junction
 	if defined where (
 		where /q "%~2" || %end% 2
 	) else (
