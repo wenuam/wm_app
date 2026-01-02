@@ -26,6 +26,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	set "cWmic=wmic process where "name='wmic.exe' and commandline like '%%_%%random%%%%random%%%%random%%_%%'" get parentprocessid"
 	set "cLog=%AppData%\%cApp%\%~3\log\%sDate:~0,4%-%sDate:~4,2%"
 	set "cVol=%HomeDrive%\Volumes\%cApp%"
+	set "cPfm=wm_app_sys_win_fs__pfm"
 	set "cUrl=github.com/wenuam"
 	set "cHub=%~2\bin\hubfs.exe"
 	set "cRep=%~3"
@@ -60,7 +61,10 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %begin%
 	rem Look for executable to run
 	if "%cVer%"=="" set "cVer=latest"
-	set "vDir=%cVol%\%cExe%\!cVer!" & set "vExe=" & set "vJre="
+	set "vDir=%cVol%\%cRep%\!cVer!"
+	call :cfs_check "" "!vDir!"
+	rem vDir may have been updated
+	set "vExe=" & set "vJre="
 	if defined exe (
 		rem Specific executable (might be in %path%)
 		set "vExe=!vDir!\!exe!"
@@ -181,13 +185,14 @@ REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
 %begin%
 	set "vVol=%cVol%\%~2"
 	rem Decrease refcount
-	for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2*.hub_*" 2^>nul') do (
+	for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2*.cfs_*" "%cVol%\%~2*.hub_*" 2^>nul') do (
 		set "vPid=%%~xi"
 		set /p vRef=<"%cVol%\%%i"
 		set /a "vRef-=1"
 		echo:!vRef!>"%cVol%\%%i"
 		if !vRef! leq 0 (
 			if "!vPid:~0,4!"==".hub" %log% Unmount repository ^(in "!vVol!"^)
+			if "!vPid:~0,4!"==".cfs" for %%a in ("%cVol%\..\%%~ni") do %log% Unmount container ^(in "%%~fa"^)
 			set vCmd=taskkill /f /t /pid !vPid:*_=! !quiet! ^& ping localhost -n 1 !quiet! ^& del "%cVol%\%%i" /f /q !quiet!
 			if defined deferred (
 				set /a deferred=!deferred!
@@ -204,6 +209,71 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 				)
 			)
 			start "%~2~def" /b cmd /v:on /c " !vCmd! "
+		)
+	)
+%end%
+
+:cfs_check %1 self, %2 path to check
+%begin%
+	rem Need target version folder
+	set "vCfs=%~2\%cApp%__cfs"
+	set "vPop=" & pushd "!vCfs!" 2>nul && popd || set "vPop=1"
+	if not defined vPop (
+		rem Cfs folder found
+		if not exist "%systemroot%\ptcfs.exe" (
+			echo Installing CFS driver ^(accept UAC for 'pfm install' if asked^)...
+			call :repo_mount "" %cPfm%
+				set "vPfm=pfm install"
+				net sess %quiet%
+				if errorlevel 1 (
+					set vTmp="!wm_guid!\!vPfm!.vbs"
+					set vEnd="!wm_guid!\%random%%random%"
+					echo Set UAC = CreateObject^("Shell.Application"^) >!vTmp!
+					rem Creating a dummy file once its installed
+					echo UAC.ShellExecute "cmd.exe", "/c cd /d ""%cVol%\%cPfm%\latest\x64"" && !vPfm! && echo ^>"!vEnd!" ", "", "runas", 1 >>!vTmp!
+					echo Set FSO = CreateObject^("Scripting.FileSystemObject"^) >>!vTmp!
+					rem Waiting for dummy file to be created
+					echo While Not FSO.FileExists^(!vEnd!^) >>!vTmp!
+					echo WScript.Sleep 100 >>!vTmp!
+					echo WEnd >>!vTmp!
+					cscript /nologo !vTmp!
+					del !vEnd! %fquiet%
+					del !vTmp! %fquiet%
+				) else (
+					pushd "%cVol%\%cPfm%\latest\x64" && !vPfm! & popd
+				)
+			call :repo_unmount "" %cPfm%
+		)
+		if not exist "%systemroot%\ptcfs.exe" (
+			echo CFS driver installation failed...
+		) else (
+			set "vTmp=" & for /f %%a in ('dir /b "!vCfs!\*.cfs" 2^>nul') do set "vTmp=%%~na"
+			if not "!vTmp!"=="" (
+				rem Cfs file found
+				set "vExe=!vTmp:*-=!"
+				call set "vExe=%%vTmp:-!vExe!=%%"
+				for %%a in ("%cVol%\..\!vTmp!") do set "vDir=%%~fa"
+				set "vPop=" & pushd "!vDir!" 2>nul && popd || set "vPop=1"
+				if defined vPop (
+					%log% Mount CFS container ^(in "!vDir!"^)
+					set vCmd=!cWmic!^>"%cVol%\!vTmp!.cfs"
+					set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\!vTmp!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
+REM					set vCmd=!vCmd! ^& title !vTmp!~cfs=^^!vPid^^!
+					set vCmd=!vCmd! ^& del "%cVol%\!vTmp!.cfs" /f /q !quiet!
+					set vCmd=!vCmd! ^& echo:1^>"%cVol%\!vTmp!.cfs_^!vPid^!"
+					set "vDbg=" & if defined debug set "vDbg=-d"
+					set vCmd=!vCmd! ^& ptcfs mount -l !vDbg! "!vCfs!\!vTmp!.cfs" "!vTmp!" 1^>"%cLog%\!vTmp!-%sDate%_%sTime%.ptcfs.log" 2^>^&1
+					set vCmd=!vCmd! ^& del "%cVol%\!vTmp!.cfs_^!vPid^!" /f /q !quiet!
+					start "!vTmp!~cfs" /b cmd /v:on /c " !vCmd! "
+					rem Check if container is mounted
+					set /a vCnt=10
+:cfs_check_loop
+					ping localhost -n 2 %quiet%
+					set /a vCnt-=1
+					pushd "!vDir!" 2>nul && popd || if !vCnt! gtr 0 goto :cfs_check_loop
+					set "ret=!vDir!"
+				)
+			)
 		)
 	)
 %end%
@@ -237,6 +307,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 					rem Don't check version/tag exists, "trust the user"
 					if "!vVer!"=="" set "ret=!vWid!\latest"
 					call :expand "" "%cVol%\!ret!"
+					call :cfs_check "" "!ret!"
 				)
 				if /i "!vVar!"=="path" (
 					if "!ret:~-1!"=="\" set "ret=!ret:~0,-1!"
