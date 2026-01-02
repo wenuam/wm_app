@@ -53,7 +53,7 @@ List of currently available cloud applications :
 | [Inkscape]			| 1.4.2_250513		| img/2d/ed			|
 | [jdk]					| 25.0.1_250925		| dev/lng/jar		|
 | [Lua]					| 5.4.8_250605		| dev/lng/lua		|
-| [Miktex]				| 24.1_240128		| doc/latex/gen		|
+| [Miktex]				| 25.12_251231		| doc/latex/gen		|
 | [Modula2]				| 0.11.0_180114		| dev/lng/m2		|
 | [mscgen]				| 8.6.3_250908		| img/2d/gen		|
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		|
