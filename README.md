@@ -61,7 +61,7 @@ List of currently available cloud applications :
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			|
 | [PellesC]				| 13.00_250521		| dev/lng/c			|
 | [pfm]					| 24X_241121		| sys/win/fs		|
-| [Picat]				| 3.9.0_250823		| dev/lng/pi		|
+| [Picat]				| 3.9.5_260114		| dev/lng/pi		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
 | [QEMU]				| 10.1.0_250826		| sys/emu			|
