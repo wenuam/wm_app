@@ -42,6 +42,7 @@ List of currently available cloud applications :
 
 | Application			| Version and date	| Type and path		|
 | :---					| :---				| :---				|
+| [ArduinoIDE]			| 2.3.7_251217		| dev/sdk/mcu		|
 | [Bob]					| 1.7.6_240311		| doc/wiki/tiddly	|
 | [Dia]					| 0.97.2_120119		| img/2d/ed			|
 | [ditaa]				| 0.11.0_180114		| img/2d/gen		|
@@ -74,6 +75,7 @@ List of currently available cloud applications :
 | [WinLibs]				| 15.2.0r4_251202	| dev/lng/cpp		|
 | [yEd]					| 3.25.1_250219		| img/2d/ed			|
 
+[ArduinoIDE]: https://github.com/wenuam/wm_app_dev_sdk_mcu__ArduinoIDE
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
 [Dia]: https://github.com/wenuam/wm_app_img_2d_ed__Dia
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
