@@ -11,19 +11,22 @@ title '%~n0' runner, by wenuam 2025
 	for /f "tokens=1,2* delims=-" %%i in ("%~n0") do set "cExe=%%i" & set "cVer=%%j"
 
 %log% Look for '%cApp%' folder ^(in "%cd%"^)
+	set "vApp=%cd:\=" & set "vTmp=\!vApp!!vTmp!" & set "vApp=%" & set "vTmp=!vApp!!vTmp!"
 	set "vApp=" & set "vRep="
-	for %%i in ("%cd:\=","%") do (
+	for %%i in ("!vTmp:\=","!") do (
 		set "vTmp=%%~i"
-		if "!vRep!"=="" ( set "vApp=!vApp!\!vTmp!" ) else ( set "vRep=!vRep!_!vTmp!" )
-		set "vTmp=!vTmp:*%cApp%=!"
-		if /i "%%~i"=="%cApp%!vTmp!" echo !vTmp:~0,1! | findstr /r "^[0-9a-zA-Z]" >nul & if errorlevel 1 set "vRep=_"
+		if not "!vApp!"=="" ( set "vApp=!vTmp!\!vApp!" ) else (
+			set "vTmp=!vTmp:*%cApp%=!"
+			if /i "%%~i"=="%cApp%!vTmp!" echo !vTmp:~0,1! | findstr /r "^[0-9a-zA-Z]" >nul & if errorlevel 1 set "vApp=%%~i"
+			if "!vApp!"=="" ( set "vRep=_!vTmp!!vRep!" )
+		)
 	)
-	if "!vRep!"=="" echo %sErr% '%cApp%' folder in "%cd%" %sNfe% & set /a errorlevel=3 & goto :done
-	set "vApp=!vApp:~1!" & set "vRep=!vRep:~2!" & set "vBat=!vApp!\bin\%cApp%.bat"
+	if "!vApp!"=="" echo %sErr% '%cApp%' folder in "%cd%" %sNfe% & set /a errorlevel=3 & goto :done
+	set "vBat=!vApp!\bin\%cApp%.bat"
 
 %log% Check toolbox presence ^("!vBat!"^)
 	if not exist "!vBat!" echo %sErr% "!vBat!" %sNfe% & set /a errorlevel=2 & goto :done
-	call "!vBat!" set_consts "!vApp!" "%cApp%_!vRep!__%cExe%"
+	call "!vBat!" set_consts "!vApp!" "%cApp%!vRep!__%cExe%"
 
 %log% Check 'hubfs' presence ^(in "%cHub%"^)
 	if not exist "%cHub%" echo %sErr% "%cHub%" %sNfe% & set /a errorlevel=5 & goto :done
