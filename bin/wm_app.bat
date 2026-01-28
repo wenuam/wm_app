@@ -142,6 +142,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 :repo_mount %1 self, %2 repository name
 %begin%
 	set "vVol=%cVol%\%~2"
+	set "vLog=%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log"
 	set "vPop=" & pushd "!vVol!" 2>nul && popd || set "vPop=1"
 	if defined vPop (
 		%log% Mount repository ^(in "!vVol!"^)
@@ -153,7 +154,7 @@ REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
 		set vCmd=!vCmd! ^& del "%cVol%\%~2.hub" /f /q !quiet!
 		set vCmd=!vCmd! ^& echo:1^>"%cVol%\%~2.hub_^!vPid^!"
 		set "vDbg=" & if defined debug set "vDbg=-o debug"
-		set vCmd=!vCmd! ^& "%cHub%" !vDbg! "%cUrl%/%~2" "!vVol!" 1^>"%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log" 2^>^&1
+		set vCmd=!vCmd! ^& "%cHub%" -auth none !vDbg! "%cUrl%/%~2" "!vVol!" 1^>"!vLog!" 2^>^&1
 		set vCmd=!vCmd! ^& del "%cVol%\%~2.hub_^!vPid^!" /f /q !quiet!
 		start "%~2~hub" /b cmd /v:on /c " !vCmd! "
 	) else (
@@ -170,6 +171,11 @@ REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
 			set /a "vRef+=1"
 			echo:!vRef!>"%cVol%\%%i"
 		)
+	)
+	rem Check HUBFS certificates
+	cmdkey /list | findstr "github.com@HUBFS" >nul & if errorlevel 1 (
+		echo   No HUBFS certificate found...
+REM		type "!vLog!"
 	)
 	rem Check if repository is mounted
 	set /a vCnt=10
