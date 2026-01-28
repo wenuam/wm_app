@@ -250,21 +250,23 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 			set "vTmp=" & for /f %%a in ('dir /b "!vCfs!\*.cfs" 2^>nul') do set "vTmp=%%~na"
 			if not "!vTmp!"=="" (
 				rem Cfs file found
-				set "vExe=!vTmp:*-=!"
-				call set "vExe=%%vTmp:-!vExe!=%%"
-				for %%a in ("%cVol%\..\!vTmp!") do set "vDir=%%~fa"
+				set "vVer=!vTmp:*-=!"
+				call set "vExe=%%vTmp:-!vVer!=%%"
+				rem Inject version because only one per cfs
+				for %%a in ("!vCfs!\..\..") do set "vRep=%%~na-!vVer!"
+				for %%a in ("%cVol%\..\!vRep!") do set "vDir=%%~fa"
 				set "vPop=" & pushd "!vDir!" 2>nul && popd || set "vPop=1"
 				if defined vPop (
 					%log% Mount CFS container ^(in "!vDir!"^)
-					set vCmd=!cWmic!^>"%cVol%\!vTmp!.cfs"
-					set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\!vTmp!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
-REM					set vCmd=!vCmd! ^& title !vTmp!~cfs=^^!vPid^^!
-					set vCmd=!vCmd! ^& del "%cVol%\!vTmp!.cfs" /f /q !quiet!
-					set vCmd=!vCmd! ^& echo:1^>"%cVol%\!vTmp!.cfs_^!vPid^!"
+					set vCmd=!cWmic!^>"%cVol%\!vRep!.cfs"
+					set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\!vRep!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
+REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
+					set vCmd=!vCmd! ^& del "%cVol%\!vRep!.cfs" /f /q !quiet!
+					set vCmd=!vCmd! ^& echo:1^>"%cVol%\!vRep!.cfs_^!vPid^!"
 					set "vDbg=" & if defined debug set "vDbg=-d"
-					set vCmd=!vCmd! ^& ptcfs mount -l !vDbg! "!vCfs!\!vTmp!.cfs" "!vTmp!" 1^>"%cLog%\!vTmp!-%sDate%_%sTime%.ptcfs.log" 2^>^&1
-					set vCmd=!vCmd! ^& del "%cVol%\!vTmp!.cfs_^!vPid^!" /f /q !quiet!
-					start "!vTmp!~cfs" /b cmd /v:on /c " !vCmd! "
+					set vCmd=!vCmd! ^& ptcfs mount -l !vDbg! "!vCfs!\!vTmp!.cfs" "!vRep!" 1^>"%cLog%\!vRep!-%sDate%_%sTime%.ptcfs.log" 2^>^&1
+					set vCmd=!vCmd! ^& del "%cVol%\!vRep!.cfs_^!vPid^!" /f /q !quiet!
+					start "!vRep!~cfs" /b cmd /v:on /c " !vCmd! "
 					rem Check if container is mounted
 					set /a vCnt=10
 :cfs_check_loop
