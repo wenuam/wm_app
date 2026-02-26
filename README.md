@@ -65,7 +65,7 @@ List of currently available cloud applications :
 | [Picat]				| 3.9.5_260114		| dev/lng/pi		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		|
 | [PostgreSQL]			| 18.1.1_251112		| db/sql			|
-| [QEMU]				| 10.1.0_250826		| sys/emu			|
+| [QEMU]				| 10.2.0_251224		| sys/emu			|
 | [Racket]				| 9.0.0_251121		| dev/lng/rkt		|
 | [StrawberryPerl]		| 5.42.0.1_250801	| dev/lng/pl		|
 | [SysinternalsSuite]	| 251120			| sys/win			|
