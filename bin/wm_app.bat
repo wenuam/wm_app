@@ -10,7 +10,7 @@ rem Run the runner first to set vars
 if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 
 :set_consts %1 self, %2 wm_app path, %3 repository name (wm_app_*)
-%begin% %log% Set COMMON constants
+%begin% %log% Set constants
 	set "quiet=1>nul 2>nul" & set "fquiet=/f /q !quiet!"
 	set "sd=%cd%"
 
@@ -18,6 +18,8 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	for /f "tokens=1,2,3,4 delims=/ " %%a in ("%date%") do set "sDate=%%d%%c%%b%%a"
 	for /f "tokens=1,2,3,4 delims=:," %%a in ("%time%") do set "sTime=%%a%%b%%c%%d"
 	set "sDate=%sDate: =0%" & set "sTime=%sTime: =0%"
+
+	title '%cExe%' runner, by wenuam 260301 ^(ran on %sDate:~2,6%_%sTime:~0,6%^)
 
 	set "sInf=  INFO:" & set "sUse=  USAGE^>"
 	set /a "aDep=-1"
@@ -36,7 +38,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %end%
 
 :run_prepare %1 self, %2 calling script full name, %3+ calling script parameters (aka %1+)
-%begin% %log% Preparing to run
+%begin% %log% Prepare to run
 	rem Set code page to UTF-8 (/!\ this file MUST be in UTF-8)
 	for /f "tokens=2 delims=:." %%x in ('chcp') do set "cp=%%x"
 	chcp 65001 >nul
@@ -58,7 +60,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %end%
 
 :run_app %1 self, %2 calling script full name, %3+ calling script parameters (aka %1-%7)
-%begin%
+%begin% %log% Running...
 	rem Look for executable to run
 	if "%cVer%"=="" set "cVer=latest"
 	set "vDir=%cVol%\%cRep%\!cVer!"
@@ -88,7 +90,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 			if "%%n"=="stdout" set vLog=!vLog! 1^>"!vTmp!.stdout.txt"
 			if "%%n"=="stderr" set vLog=!vLog! 2^>"!vTmp!.stderr.txt"
 		)
-		%log% Run application ^("!vExe!" "!vCli!"^)
+		%log%   Run application ^("!vExe!" "!vCli!"^)
 		rem Check Java archive
 		if /i "!vExt!"==".jar" (
 			if defined where (
@@ -109,7 +111,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 					popd
 				)
 			) else (
-				%log% %sErr% No Java engine found/installed
+				%log%     %sErr% No Java engine found/installed
 			)
 		) else (
 			if defined detached (
@@ -140,12 +142,12 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %end%
 
 :repo_mount %1 self, %2 repository name
-%begin%
+%begin% %log% Mounting...
 	set "vVol=%cVol%\%~2"
 	set "vLog=%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log"
 	set "vPop=" & pushd "!vVol!" 2>nul && popd || set "vPop=1"
 	if defined vPop (
-		%log% Mount repository ^(in "!vVol!"^)
+		%log%   Mount repository ^(in "!vVol!"^)
 		for %%i in (def hub) do del "%cVol%\%~2.%%i*" %fquiet%
 		rem Connect to the repository (versions[/tags/commits] are [hidden] subfolders)
 		set vCmd=!cWmic!^>"%cVol%\%~2.hub"
@@ -188,7 +190,7 @@ REM		type "!vLog!"
 %end%
 
 :repo_unmount %1 self, %2 repository name
-%begin%
+%begin% %log% Unmounting...
 	set "vVol=%cVol%\%~2"
 	rem Decrease refcount
 	for /f %%i in ('dir /b /on /a:-d "%cVol%\%~2*.cfs_*" "%cVol%\%~2*.hub_*" 2^>nul') do (
@@ -197,13 +199,13 @@ REM		type "!vLog!"
 		set /a "vRef-=1"
 		echo:!vRef!>"%cVol%\%%i"
 		if !vRef! leq 0 (
-			if "!vPid:~0,4!"==".hub" %log% Unmount repository ^(in "!vVol!"^)
-			if "!vPid:~0,4!"==".cfs" for %%a in ("%cVol%\..\%%~ni") do %log% Unmount container ^(in "%%~fa"^)
+			if "!vPid:~0,4!"==".hub" %log%   Unmount repository ^(in "!vVol!"^)
+			if "!vPid:~0,4!"==".cfs" for %%a in ("%cVol%\..\%%~ni") do %log%   Unmount container ^(in "%%~fa"^)
 			set vCmd=taskkill /f /t /pid !vPid:*_=! !quiet! ^& ping localhost -n 1 !quiet! ^& del "%cVol%\%%i" /f /q !quiet!
 			if defined deferred (
 				set /a deferred=!deferred!
 				if !deferred! gtr 0 (
-					%log%   Deferred ^(in !deferred! seconds^)
+					%log%     Deferred ^(in !deferred! seconds^)
 					set vDef=!cWmic!^>"%cVol%\%~2.def"
 					set vDef=!vDef! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\%~2.def"'^) do set /a vPid=%%a ^) 1^>nul
 REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
@@ -220,7 +222,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 %end%
 
 :cfs_check %1 self, %2 path to check
-%begin%
+%begin% %log% Checking CFS...
 	rem Need target version folder
 	set "vCfs=%~2\%cApp%__cfs"
 	set "vPop=" & pushd "!vCfs!" 2>nul && popd || set "vPop=1"
@@ -228,6 +230,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 		rem Cfs folder found
 		if not exist "%systemroot%\ptcfs.exe" (
 			echo Installing CFS driver ^(accept UAC for 'pfm install' if asked^)...
+			echo   You may review the command line before execution in case of doubt
 			call :repo_mount "" %cPfm%
 				set "vPfm=pfm install"
 				net sess %quiet%
@@ -263,7 +266,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 				for %%a in ("%cVol%\..\!vRep!") do set "vDir=%%~fa"
 				set "vPop=" & pushd "!vDir!" 2>nul && popd || set "vPop=1"
 				if defined vPop (
-					%log% Mount CFS container ^(in "!vDir!"^)
+					%log%   Mount CFS container ^(in "!vDir!"^)
 					set vCmd=!cWmic!^>"%cVol%\!vRep!.cfs"
 					set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\!vRep!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
 REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
@@ -287,11 +290,11 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 %end%
 
 :config_load %1 self, %2+ configuration filenames
-%begin%
+%begin% %log% Configuring...
 :config_load_loop
 	set "vCfg=%cd%\%~2.cfg"
 	if exist "!vCfg!" (
-		%log% Load configuration files ^("!vCfg!"^)
+		%log%   Load configuration files ^("!vCfg!"^)
 		for /f "usebackq tokens=1* delims=?=" %%i in ("!vCfg!") do (
 			rem Retrieve parameters
 			if "%%j"=="" (
@@ -329,12 +332,12 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 						)
 						rem If executable with extension (not "failed" folder detection)
 						if not "!vExt!"=="" (
-							%log% %sInf% Checking for available "!vExe!!vExt!" to supersede...
+							%log%   %sInf% Checking for available "!vExe!!vExt!" to supersede...
 							if defined where (
 								for /f "delims=" %%a in ('where $path:"!vExe!!vExt!" 2^>nul') do (
 									set "vExe=%%~dpa" & if "!vExe:~-1!"=="\" set "vExe=!vExe:~0,-1!"
 									if not "!vDir!"=="!vExe!" (
-										%log% %sInf% Found "!vExe!" to remove
+										%log%     %sInf% Found "!vExe!" to remove
 										call set "path=%%path:!vExe!=%%"
 									)
 								)
@@ -343,7 +346,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 								for %%a in (!ret!) do (
 									set "vExe=%%~dpa" & if "!vExe:~-1!"=="\" set "vExe=!vExe:~0,-1!"
 									if not "!vDir!"=="!vExe!" (
-										%log% %sInf% Found "!vExe!" to remove
+										%log%     %sInf% Found "!vExe!" to remove
 										call set "path=%%path:!vExe!=%%"
 									)
 								)
@@ -372,7 +375,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 %end%
 
 :clean_path %1 self
-%begin% %log% Clean 'path' environment variable
+%begin% %log% Cleanse path
 	for /l %%l in (0,1,2) do (
 		set "path=!path:;%%SystemRoot;=;!"
 		set "path=!path:\\=\!"
@@ -420,7 +423,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 %end%
 
 :dependency_check %1 self, %2 dependency to check
-%begin% %log% Check dependency exist ^("%~2"^)
+%begin% %log% Check dependency ^("%~2"^)
 	rem Beware, 'where' is very slow and may even fail on link/junction
 	if defined where (
 		where /q "%~2" || %end% 2
@@ -435,7 +438,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 	set "ret="
 	rem Get the filename
 	for %%a in ("%~2") do (
-		%log% Look for file ^("%%~a"^)
+		%log% Where is file ^("%%~a"^)
 		rem Get the extension (if specified)
 		set "lExt=%%~xa"
 		rem Default is executable extensions list (including "weird" ones)
@@ -458,12 +461,12 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 	)
 %end%
 
-rem  - - - TOOLBOX - - - -
+rem	- - - TOOLBOX - - - -
 
 :clean_filename %1 self, %2 filename to clean
 %begin%
 	set "ret=%~2"
-	%log% Clean filename ^("!ret!"^)
+	%log% Cleanse filename ^("!ret!"^)
 	set "vTmp="
 :clean_filename_loop
 	rem Remove asterix
@@ -474,6 +477,7 @@ rem  - - - TOOLBOX - - - -
 	set "ret=!vTmp:~1!"
 	if "!ret!"=="" set "ret=%~2"
 	for %%a in ("""'" "/_" ":_" "<_" ">_" "?_" "\_" "|_") do set "vTmp=%%~a" & call set "ret=%%ret:!vTmp:~0,1!=!vTmp:~-1!%%"
+	if not "%~2"=="!ret!" %log%   Result "!ret!"
 %end%
 
 :accent_remove %1 self, %2 string to clean
@@ -482,6 +486,7 @@ rem  - - - TOOLBOX - - - -
 	%log% Remove accent ^("!ret!"^)
 	rem First character of a group is replaced with remaining characters (mismatch for 'Ç' and 'Ö')
 	for %%a in (¡_ ¿_ áa ÁA àa ÀA âa ÂA äa ÄA ãa ÃA åa ÅA æae ÆAE çc ÇC ðo ÐD ée ÉE èe ÈE êe ÊE ëe ËE íi ÍI ìi ÌI îi ÎI ïi ÏI ñn ÑN óo ÓO òo ÒO ôo ÔO öo ÖO õo ÕO øo ØO œoe ŒOE ßSS úu ÚU ùu ÙU ûu ÛU üu ÜU ýy ÝY ÿy ŸY) do set "vTmp=%%~a" & call set "ret=%%ret:!vTmp:~0,1!=!vTmp:~1!%%"
+	if not "%~2"=="!ret!" %log%   Result "!ret!"
 %end%
 
 :expand_path_attr %1 self, %2 string to expand (contains $[...]), %3 string to inject
