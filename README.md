@@ -75,6 +75,7 @@ List of currently available cloud applications :
 | [SysinternalsSuite]	| 251120				| sys/win			| 					|
 | [Tabula]				| 1.2.1_180604			| doc/pdf/utl		| 					|
 | [Tesseract]			| 5.5.0_241111			| img/ocr			| 					|
+| [vera]				| 1.3.0_150123			| dev/ast			| 					|
 | [vlang]				| 0.4.12_250919			| dev/lng/v			| 					|
 | [WinLibs]				| 15.2.0r4_251202		| dev/lng/cpp		| 					|
 | [yEd]					| 3.25.1_250219			| img/2d/ed			| 					|
@@ -110,6 +111,7 @@ List of currently available cloud applications :
 [SysinternalsSuite]: https://github.com/wenuam/wm_app_sys_win_utl__SysinternalsSuite
 [Tabula]: https://github.com/wenuam/wm_app_doc_pdf_utl__Tabula
 [Tesseract]: https://github.com/wenuam/wm_app_img_ocr__Tesseract
+[vera]: https://github.com/wenuam/wm_app_dev_ast__vera
 [vlang]: https://github.com/wenuam/wm_app_dev_lng_v__vlang
 [WinLibs]: https://github.com/wenuam/wm_app_dev_lng_cpp__WinLibs
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd

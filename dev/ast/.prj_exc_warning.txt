@@ -1,0 +1,7 @@
+missingIncludeSystem:*
+unmatchedSuppression:*
+redundantAssignment:*
+unusedFunction:*
+variableScope:*
+syntaxError:*
+*:*/tests/t?_*
