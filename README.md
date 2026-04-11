@@ -79,6 +79,7 @@ List of currently available cloud applications :
 | [vlang]				| 0.4.12_250919			| dev/lng/v			| 					|
 | [WinLibs]				| 15.2.0r4_251202		| dev/lng/cpp		| 					|
 | [yEd]					| 3.25.1_250219			| img/2d/ed			| 					|
+| [xidel]				| 0.9.9.8842_230616		| dev/ast			| 					|
 
 [ArduinoIDE]: https://github.com/wenuam/wm_app_dev_sdk_mcu__ArduinoIDE
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
@@ -115,6 +116,7 @@ List of currently available cloud applications :
 [vlang]: https://github.com/wenuam/wm_app_dev_lng_v__vlang
 [WinLibs]: https://github.com/wenuam/wm_app_dev_lng_cpp__WinLibs
 [yEd]: https://github.com/wenuam/wm_app_img_2d_ed__yEd
+[xidel]: https://github.com/wenuam/wm_app_dev_ast__xidel
 
 ## Inner working
 
