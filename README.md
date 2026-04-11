@@ -63,7 +63,7 @@ List of currently available cloud applications :
 | [my_basic]			| 1.2.2_250429		| dev/lng/bas		| 					|
 | [node]				| 25.2.1_251117		| dev/lng/js		| 					|
 | [Pandoc]				| 3.8.3_251201		| doc/cnv			| 					|
-| [PellesC]				| 13.00_250521		| dev/lng/c			| 					|
+| [PellesC]				| 14.00_260407		| dev/lng/c			| 					|
 | [pfm]					| 24X_241121		| sys/win/fs		| 					|
 | [Picat]				| 3.9.7_260226		| dev/lng/pi		| Almost all		|
 | [PlantUML]			| 1.2025.10_251104	| img/2d/gen		| 					|
