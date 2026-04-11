@@ -42,44 +42,46 @@ Whenever possible, the **Linux** binaries are available alongside the **Windows*
 
 List of currently available cloud applications :
 
-| Application			| Version and date	| Type and path		| Linux binaries	|
-| :---					| :---				| :---				| :---				|
-| [ArduinoIDE]			| 2.3.7_251217		| dev/sdk/mcu		| 					|
-| [Bob]					| 1.7.6_240311		| doc/wiki/tiddly	| 					|
-| [Dia]					| 0.97.2_120119		| img/2d/ed			| 					|
-| [ditaa]				| 0.11.0_180114		| img/2d/gen		| 					|
-| [Erlang]				| 28.3.2_260220		| dev/lng/erl		| 					|
-| [FreePascal]			| 3.2.2_210519		| dev/lng/pas		| 					|
-| [Ghostscript]			| 10.06.0_250909	| doc/pdf/cnv		| 					|
-| [Git]					| 2.52.0_251117		| dev/scm/git		| 					|
-| [Graphviz]			| 14.0.5_251129		| img/2d/gen		| 					|
-| [ImageMagick]			| 7.1.2-8_251026	| img/2d/gen		| 					|
-| [Inkscape]			| 1.4.2_250513		| img/2d/ed			| 					|
-| [jdk]					| 25.0.1_250925		| dev/lng/jar		| 					|
-| [Lua]					| 5.4.8_250605		| dev/lng/lua		| 					|
-| [Miktex]				| 25.12_251231		| doc/latex/gen		| 					|
-| [Modula2]				| 0.11.0_180114		| dev/lng/m2		| 					|
-| [mscgen]				| 8.6.3_250908		| img/2d/gen		| 					|
-| [my_basic]			| 1.2.2_250429		| dev/lng/bas		| 					|
-| [node]				| 25.2.1_251117		| dev/lng/js		| 					|
-| [Pandoc]				| 3.8.3_251201		| doc/cnv			| 					|
-| [PellesC]				| 14.00_260407		| dev/lng/c			| 					|
-| [pfm]					| 24X_241121		| sys/win/fs		| 					|
-| [Picat]				| 3.9.7_260226		| dev/lng/pi		| Almost all		|
-| [PlantUML]			| 1.2025.10_251104	| img/2d/gen		| 					|
-| [PostgreSQL]			| 18.1.1_251112		| db/sql			| 					|
-| [QEMU]				| 10.2.0_251224		| sys/emu			| 					|
-| [Racket]				| 9.0.0_251121		| dev/lng/rkt		| 					|
-| [StrawberryPerl]		| 5.42.0.1_250801	| dev/lng/pl		| 					|
-| [SysinternalsSuite]	| 251120			| sys/win			| 					|
-| [Tabula]				| 1.2.1_180604		| doc/pdf/utl		| 					|
-| [Tesseract]			| 5.5.0_241111		| img/ocr			| 					|
-| [vlang]				| 0.4.12_250919		| dev/lng/v			| 					|
-| [WinLibs]				| 15.2.0r4_251202	| dev/lng/cpp		| 					|
-| [yEd]					| 3.25.1_250219		| img/2d/ed			| 					|
+| Application			| Version and date		| Type and path		| Linux binaries	|
+| :---					| :---					| :---				| :---				|
+| [ArduinoIDE]			| 2.3.7_251217			| dev/sdk/mcu		| 					|
+| [Bob]					| 1.7.6_240311			| doc/wiki/tiddly	| 					|
+| [ctags]				| 6.2.20260329.0_260329	| dev/ast			| 					|
+| [Dia]					| 0.97.2_120119			| img/2d/ed			| 					|
+| [ditaa]				| 0.11.0_180114			| img/2d/gen		| 					|
+| [Erlang]				| 28.3.2_260220			| dev/lng/erl		| 					|
+| [FreePascal]			| 3.2.2_210519			| dev/lng/pas		| 					|
+| [Ghostscript]			| 10.06.0_250909		| doc/pdf/cnv		| 					|
+| [Git]					| 2.52.0_251117			| dev/scm/git		| 					|
+| [Graphviz]			| 14.0.5_251129			| img/2d/gen		| 					|
+| [ImageMagick]			| 7.1.2-8_251026		| img/2d/gen		| 					|
+| [Inkscape]			| 1.4.2_250513			| img/2d/ed			| 					|
+| [jdk]					| 25.0.1_250925			| dev/lng/jar		| 					|
+| [Lua]					| 5.4.8_250605			| dev/lng/lua		| 					|
+| [Miktex]				| 25.12_251231			| doc/latex/gen		| 					|
+| [Modula2]				| 0.11.0_180114			| dev/lng/m2		| 					|
+| [mscgen]				| 8.6.3_250908			| img/2d/gen		| 					|
+| [my_basic]			| 1.2.2_250429			| dev/lng/bas		| 					|
+| [node]				| 25.2.1_251117			| dev/lng/js		| 					|
+| [Pandoc]				| 3.8.3_251201			| doc/cnv			| 					|
+| [PellesC]				| 14.00_260407			| dev/lng/c			| 					|
+| [pfm]					| 24X_241121			| sys/win/fs		| 					|
+| [Picat]				| 3.9.7_260226			| dev/lng/pi		| Almost all		|
+| [PlantUML]			| 1.2025.10_251104		| img/2d/gen		| 					|
+| [PostgreSQL]			| 18.1.1_251112			| db/sql			| 					|
+| [QEMU]				| 10.2.0_251224			| sys/emu			| 					|
+| [Racket]				| 9.0.0_251121			| dev/lng/rkt		| 					|
+| [StrawberryPerl]		| 5.42.0.1_250801		| dev/lng/pl		| 					|
+| [SysinternalsSuite]	| 251120				| sys/win			| 					|
+| [Tabula]				| 1.2.1_180604			| doc/pdf/utl		| 					|
+| [Tesseract]			| 5.5.0_241111			| img/ocr			| 					|
+| [vlang]				| 0.4.12_250919			| dev/lng/v			| 					|
+| [WinLibs]				| 15.2.0r4_251202		| dev/lng/cpp		| 					|
+| [yEd]					| 3.25.1_250219			| img/2d/ed			| 					|
 
 [ArduinoIDE]: https://github.com/wenuam/wm_app_dev_sdk_mcu__ArduinoIDE
 [Bob]: https://github.com/wenuam/wm_app_doc_wiki_tiddly__Bob
+[ctags]: https://github.com/wenuam/wm_app_dev_ast__ctags
 [Dia]: https://github.com/wenuam/wm_app_img_2d_ed__Dia
 [ditaa]: https://github.com/wenuam/wm_app_img_2d_gen__ditaa
 [Erlang]: https://github.com/wenuam/wm_app_dev_lng_erl__Erlang
