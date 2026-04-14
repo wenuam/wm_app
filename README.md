@@ -8,7 +8,6 @@
 <!-- 	- [Environment variables](#environment-variables) -->
 <!-- 	- [Configuration file](#configuration-file) -->
 <!-- 	- [Command override](#command-override) -->
-<!-- 	- [Command deprecation](#command-deprecation) -->
 
 <!-- ![wm_app image](./wm_app.png "wm_app image") -->
 <img src="./wm_app.png" alt="wm_app image" width="225" />
@@ -287,9 +286,3 @@ Hence it is possible to set the `deferred` environment variable this way, as it'
 ### Command override
 
 Some internal commands are buggy on remote mount points (i.e. `where` in [Windows]) so a similar one has been coded to be able to tweak its internals.
-
-### Command deprecation
-
-Some internal commands are pending deprecation (i.e. `wmic` in [Windows]) so they will be replaced with a proper alternative in the future.
-
-When I say *PROPER* I mean "fast", "efficient", "lightweight", "readable", "maintainable", "long-lasting", not randomly engineered aberrations "fixing" dummy **Kanban** tickets to please clueless bosses. As the proverb goes [“if it ain't broke, don't fix it”](https://www.youtube.com/watch?v=YjYz3EQ5fOo)...

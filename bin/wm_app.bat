@@ -19,13 +19,13 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	for /f "tokens=1,2,3,4 delims=:," %%a in ("%time%") do set "sTime=%%a%%b%%c%%d"
 	set "sDate=%sDate: =0%" & set "sTime=%sTime: =0%"
 
-	title '%cExe%' runner, by wenuam 260301 ^(ran on %sDate:~2,6%_%sTime:~0,6%^)
+	title '%cExe%' runner, by wenuam 260413 ^(ran on %sDate:~2,6%_%sTime:~0,6%^)
 
 	set "sInf=  INFO:" & set "sUse=  USAGE^>"
 	set /a "aDep=-1"
 
 	rem Do *NOT* execute 'cWmic' in a 'for /f' context, otherwise you'll get the hidden subprocess' pid
-	set "cWmic=wmic process where "name='wmic.exe' and commandline like '%%_%%random%%%%random%%%%random%%_%%'" get parentprocessid"
+	set "cWmic=chcp 437 >nul & powershell -NoProfile -NonInteractive -Command "^(Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%%_%%random%%%%random%%%%random%%_%%'\"^).ParentProcessId""
 	set "cLog=%AppData%\%cApp%\%~3\log\%sDate:~0,4%-%sDate:~4,2%"
 	set "cVol=%HomeDrive%\Volumes\%cApp%"
 	set "cPfm=wm_app_sys_win_fs__pfm"
@@ -41,7 +41,8 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %begin% %log% Prepare to run
 	rem Set code page to UTF-8 (/!\ this file MUST be in UTF-8)
 	for /f "tokens=2 delims=:." %%x in ('chcp') do set "cp=%%x"
-	chcp 65001 >nul
+	set "cputf=65001"
+	chcp %cputf% >nul
 
 	rem Mount repository first (may not exist if 'helper' script with dependencies)
 	echo Mounting remote repositories ^(may take a while^)...
@@ -150,8 +151,8 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 		%log%   Mount repository ^(in "!vVol!"^)
 		for %%i in (def hub) do del "%cVol%\%~2.%%i*" %fquiet%
 		rem Connect to the repository (versions[/tags/commits] are [hidden] subfolders)
-		set vCmd=!cWmic!^>"%cVol%\%~2.hub"
-		set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\%~2.hub"'^) do set /a vPid=%%a ^) 1^>nul
+		set vCmd=!cWmic!^>"%cVol%\%~2.hub" ^& chcp %cputf% ^>nul
+		set vCmd=!vCmd! ^& ^( for /f %%a in ^('type "%cVol%\%~2.hub"'^) do set /a vPid=%%a ^) 1^>nul
 REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
 		set vCmd=!vCmd! ^& del "%cVol%\%~2.hub" /f /q !quiet!
 		set vCmd=!vCmd! ^& echo:1^>"%cVol%\%~2.hub_^!vPid^!"
@@ -206,8 +207,8 @@ REM		type "!vLog!"
 				set /a deferred=!deferred!
 				if !deferred! gtr 0 (
 					%log%     Deferred ^(in !deferred! seconds^)
-					set vDef=!cWmic!^>"%cVol%\%~2.def"
-					set vDef=!vDef! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\%~2.def"'^) do set /a vPid=%%a ^) 1^>nul
+					set vDef=!cWmic!^>"%cVol%\%~2.def" ^& chcp %cputf% ^>nul
+					set vDef=!vDef! ^& ^( for /f %%a in ^('type "%cVol%\%~2.def"'^) do set /a vPid=%%a ^) 1^>nul
 REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 					set vDef=!vDef! ^& del "%cVol%\%~2.def" /f /q !quiet!
 					set vDef=!vDef! ^& echo:!deferred!^>"%cVol%\%~2.def_^!vPid^!"
@@ -267,8 +268,8 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 				set "vPop=" & pushd "!vDir!" 2>nul && popd || set "vPop=1"
 				if defined vPop (
 					%log%   Mount CFS container ^(in "!vDir!"^)
-					set vCmd=!cWmic!^>"%cVol%\!vRep!.cfs"
-					set vCmd=!vCmd! ^& ^( for /f "skip=1" %%a in ^('type "%cVol%\!vRep!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
+					set vCmd=!cWmic!^>"%cVol%\!vRep!.cfs" ^& chcp %cputf% ^>nul
+					set vCmd=!vCmd! ^& ^( for /f %%a in ^('type "%cVol%\!vRep!.cfs"'^) do set /a vPid=%%a ^) 1^>nul
 REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 					set vCmd=!vCmd! ^& del "%cVol%\!vRep!.cfs" /f /q !quiet!
 					set vCmd=!vCmd! ^& echo:1^>"%cVol%\!vRep!.cfs_^!vPid^!"
