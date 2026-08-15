@@ -19,7 +19,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	for /f "tokens=1,2,3,4 delims=:," %%a in ("%time%") do set "sTime=%%a%%b%%c%%d"
 	set "sDate=%sDate: =0%" & set "sTime=%sTime: =0%"
 
-	title '%cExe%' runner, by wenuam 260413 ^(ran on %sDate:~2,6%_%sTime:~0,6%^)
+	title '%cExe%' wm_app ^(ran %sDate:~2,6%_%sTime:~0,6%^)
 
 	set "sInf=  INFO:" & set "sUse=  USAGE^>"
 	set /a "aDep=-1"
@@ -54,7 +54,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	if not "%cExe%"=="%~n2" if not "%cExe%-%cVer%"=="%~n2" call :config_load "" "%~n2"
 	call :clean_path ""
 
-	echo About to run application ^(setting last things up^)...
+	echo About to run application ^(caching data, setting last things up^)...
 	call :check_param "" %3
 	call :enforce_cd ""
 	call :run_app "" %2 %3 %4 %5 %6 %7 %8 %9
@@ -87,11 +87,13 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 		rem Logging redirection
 		set "vLog="
 		set "vTmp=%cLog%\%cRep%-!cVer!-%sDate%_%sTime%"
+		rem %log% and !log! are different
 		for %%n in (!log!) do (
 			if "%%n"=="stdout" set vLog=!vLog! 1^>"!vTmp!.stdout.txt"
 			if "%%n"=="stderr" set vLog=!vLog! 2^>"!vTmp!.stderr.txt"
 		)
 		%log%   Run application ^("!vExe!" "!vCli!"^)
+		set "path=!path!;!vDir!"
 		rem Check Java archive
 		if /i "!vExt!"==".jar" (
 			if defined where (
@@ -103,6 +105,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 			)
 			if not "!vJre!"=="" (
 				call :expand "" "!vJre!\.."
+				rem Mandatory to run Java archive
 				set "JAVA_HOME=!ret!"
 				if defined detached (
 					start "!vExe!" /d "!vDir!" "cmd" /c java !vCli! -jar "!vExe!" !vLog!
@@ -146,6 +149,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 %begin% %log% Mounting...
 	set "vVol=%cVol%\%~2"
 	set "vLog=%cLog%\%~2-all-%sDate%_%sTime%.hubfs.log"
+	rem Check folder ('exist' works better on files)
 	set "vPop=" & pushd "!vVol!" 2>nul && popd || set "vPop=1"
 	if defined vPop (
 		%log%   Mount repository ^(in "!vVol!"^)
@@ -175,9 +179,9 @@ REM		set vCmd=!vCmd! ^& title %~2~hub=^^!vPid^^!
 			echo:!vRef!>"%cVol%\%%i"
 		)
 	)
-	rem Check HUBFS certificates
+	rem Check HUBFS certificates (useless with '-auth none')
 	cmdkey /list | findstr "github.com@HUBFS" >nul & if errorlevel 1 (
-		echo   No HUBFS certificate found...
+		echo   No HUBFS certificate found... >nul
 REM		type "!vLog!"
 	)
 	rem Check if repository is mounted
@@ -262,7 +266,7 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 				rem Cfs file found
 				set "vVer=!vTmp:*-=!"
 				call set "vExe=%%vTmp:-!vVer!=%%"
-				rem Inject version because only one per cfs
+				rem Inject version because only one per CFS
 				for %%a in ("!vCfs!\..\..") do set "vRep=%%~na-!vVer!"
 				for %%a in ("%cVol%\..\!vRep!") do set "vDir=%%~fa"
 				set "vPop=" & pushd "!vDir!" 2>nul && popd || set "vPop=1"
@@ -320,6 +324,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 					if "!vVer!"=="" set "ret=!vWid!\latest"
 					call :expand "" "%cVol%\!ret!"
 					call :cfs_check "" "!ret!"
+					rem ret may have been updated
 				)
 				if /i "!vVar!"=="path" (
 					if "!ret:~-1!"=="\" set "ret=!ret:~0,-1!"
@@ -464,17 +469,17 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 
 rem	- - - TOOLBOX - - - -
 
-:clean_filename %1 self, %2 filename to clean
+:filename_clean %1 self, %2 filename to clean
 %begin%
 	set "ret=%~2"
 	%log% Cleanse filename ^("!ret!"^)
 	set "vTmp="
-:clean_filename_loop
+:filename_clean_loop
 	rem Remove asterix
 	for /f "tokens=1* delims=*" %%a in ("!ret!") do (
 		set "vTmp=!vTmp!-%%a" & set "ret=%%b"
 	)
-	if defined ret goto :clean_filename_loop
+	if defined ret goto :filename_clean_loop
 	set "ret=!vTmp:~1!"
 	if "!ret!"=="" set "ret=%~2"
 	for %%a in ("""'" "/_" ":_" "<_" ">_" "?_" "\_" "|_") do set "vTmp=%%~a" & call set "ret=%%ret:!vTmp:~0,1!=!vTmp:~-1!%%"
@@ -490,7 +495,7 @@ rem	- - - TOOLBOX - - - -
 	if not "%~2"=="!ret!" %log%   Result "!ret!"
 %end%
 
-:expand_path_attr %1 self, %2 string to expand (contains $[...]), %3 string to inject
+:path_expand %1 self, %2 string to expand (contains $[...]), %3 string to inject
 %begin%
 	rem Beware of spaces and/or double quotes, it gets "exploded"
 	set "ret=%2"
