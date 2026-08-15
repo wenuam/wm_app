@@ -48,6 +48,11 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	echo Mounting remote repositories ^(may take a while^)...
 	call :clean_path ""
 	call :repo_mount "" "%cRep%"
+	rem Look for executable to run
+	if "%cVer%"=="" set "cVer=latest"
+	set "vDir=%cVol%\%cRep%\!cVer!"
+	call :cfs_check "" "!vDir!"
+	set "cDir=!ret!"
 
 	rem Load configuration files (executable to run, parameters, dependencies)
 	call :config_load "" "%cExe%" "%cExe%-%cVer%"
@@ -62,18 +67,13 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 
 :run_app %1 self, %2 calling script full name, %3+ calling script parameters (aka %1-%7)
 %begin% %log% Running...
-	rem Look for executable to run
-	if "%cVer%"=="" set "cVer=latest"
-	set "vDir=%cVol%\%cRep%\!cVer!"
-	call :cfs_check "" "!vDir!"
-	rem vDir may have been updated
 	set "vExe=" & set "vJre="
 	if defined exe (
 		rem Specific executable (might be in %path%)
-		set "vExe=!vDir!\!exe!"
+		set "vExe=!cDir!\!exe!"
 	) else (
 		rem Fetch executable from script filename
-		for %%a in (.jar %pathext:;= %) do if "!vExe!"=="" if exist "!vDir!\%cExe%%%a" set "vExe=!vDir!\%cExe%%%a"
+		for %%a in (.jar %pathext:;= %) do if "!vExe!"=="" if exist "!cDir!\%cExe%%%a" set "vExe=!cDir!\%cExe%%%a"
 	)
 	if not "!vExe!"=="" (
 		for %%g in ("!vExe!") do set "vDir=%%~dpg" & set "vExe=%%~nxg" & set "vExt=%%~xg"
@@ -313,7 +313,7 @@ REM					set vCmd=!vCmd! ^& title !vRep!~cfs=^^!vPid^^!
 			rem Check variable not commented out (name with invalid characters)
 			echo(!vVar!|findstr /i /r /x "[0-9a-z_+]*" >nul) && (
 				rem Check relative path (. or ..)
-				if "!ret:~0,1!"=="." call :expand "" "%cVol%\!ret!"
+				if "!ret:~0,1!"=="." call :expand "" "%cDir%\!ret!"
 				rem Check if 'wm_app' dependency to mount
 				if /i "!ret!"=="%cApp%!ret:*%cApp%=!" (
 					set "ret=!ret:/=\!"
@@ -501,6 +501,9 @@ rem	- - - TOOLBOX - - - -
 	set "ret=%2"
 REM	set "ret=%~f2"
 	%log% Expand path and attributes ^("!ret!" with "%~3"^)
+	call set "ret=%%ret:$[APP]=!cDir!%%"
+	call set "ret=%%ret:$[VOL]=!cVol!%%"
+	rem Path related
 	set "ret=!ret:$[FULL]=%~f3!"
 	set "ret=!ret:$[DISK]=%~d3!"
 	set "ret=!ret:$[FOLD]=%~p3!"
