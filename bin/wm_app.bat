@@ -45,7 +45,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	chcp %cputf% >nul
 
 	rem Mount repository first (may not exist if 'helper' script with dependencies)
-	echo Mounting remote repositories ^(may take a while^)...
+	echo Mounting remote repositories ^(caching data, may take a while^)...
 	call :clean_path ""
 	call :repo_mount "" "%cRep%"
 	rem Look for executable to run
@@ -59,7 +59,7 @@ if "%~1"=="" ( goto :eof ) else ( goto :%~1 )
 	if not "%cExe%"=="%~n2" if not "%cExe%-%cVer%"=="%~n2" call :config_load "" "%~n2"
 	call :clean_path ""
 
-	echo About to run application ^(caching data, setting last things up^)...
+	echo About to run application ^(setting last things up^)...
 	call :check_param "" %3
 	call :enforce_cd ""
 	call :run_app "" %2 %3 %4 %5 %6 %7 %8 %9
@@ -228,8 +228,9 @@ REM					set vDef=!vDef! ^& title %~2~def=^^!vPid^^!
 
 :cfs_check %1 self, %2 path to check
 %begin% %log% Checking CFS...
+	set "ret=%~f2"
 	rem Need target version folder
-	set "vCfs=%~2\%cApp%__cfs"
+	set "vCfs=!ret!\%cApp%__cfs"
 	set "vPop=" & pushd "!vCfs!" 2>nul && popd || set "vPop=1"
 	if not defined vPop (
 		rem Cfs folder found
