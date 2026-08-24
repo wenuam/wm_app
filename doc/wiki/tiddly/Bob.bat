@@ -1,7 +1,7 @@
 @echo off & setlocal EnableExtensions EnableDelayedExpansion
 if "%~dp0" neq "!guid!\" (set "guid=%tmp%\wm.%~nx0.%~z0" & set "cd=%~dp0" & (if not exist "!guid!\%~nx0" (mkdir "!guid!" 2>nul & find "" /v<"%~f0" >"!guid!\%~nx0")) & call "!guid!\%~nx0" %* & rmdir /s /q "!guid!" 2>nul & exit /b) else (if "%cd:~-1%"=="\" set "cd=%cd:~0,-1%")
 
-title '%~n0' runner, by wenuam 2025
+title '%~n0' runner, by wenuam 2026
 	set "cApp=wm_app" & set "vLvl=>"
 	set "sErr=  ERROR:" & set "sNfe=not found, exiting..."
 	set log=echo:%debug%^|findstr /r /c:"."^>nul ^&^& echo ^^!vLvl^^!
@@ -35,19 +35,19 @@ title '%~n0' runner, by wenuam 2025
 rem  - - - START - - -
 rem Execute specific code here once the 'wm_app' is ready
 
-set "vDir=%cVol%\%cExe%\!cVer!"
+set "cBob=BobWin.exe"
+set "cCfg=!cDir!\IndexWiki\settings\settings.json"
 
-set "cBob=%~n0Win.exe"
-set "cCfg=!vDir!\IndexWiki\settings\settings.json"
+REM	attrib -r !cCfg!
 
-echo Starting TW5-Bob server...
+echo Starting TW5-Bob server ^(5s^)...
 REM	echo   proc=%cBob%
 	for /f "tokens=1" %%i In ('tasklist /nh /fi "imagename eq %cBob%"') do set "vBob=%%~i"
 	if /i not "%cBob%"=="!vBob!" (
 		if not "!vHtml!"=="" (
-			start "%cBob% (!vHtml!)" /b /d "!vDir!" "%cBob%"
+			start "%cBob% (!vHtml!)" /b /d "!cDir!" "%cBob%"
 		) else (
-			start "%cBob%" /b /d "!vDir!" "%cBob%"
+			start "%cBob%" /b /d "!cDir!" "%cBob%"
 		)
 		rem Wait for Bob to start from mount point
 		timeout /t 5 /nobreak >nul
@@ -56,18 +56,18 @@ REM	echo   proc=%cBob%
 	)
 
 echo Reading configuration file...
-REM	echo   conf=%cCfg%
+REM	echo   conf=!cCfg!
 	set "vHost="
 	rem PowerShell *NEEDS* code page 437 to not change console font
 	for /f "tokens=2 delims=:." %%x in ('chcp') do set "cp_ps=%%x"
 	chcp 437 >nul
-	for /f "delims=" %%i in ('Powershell -Nop -C "(Get-Content "%cCfg%"|ConvertFrom-Json).'ws-server'.host"') do set "vHost=%%~i"
+	for /f "delims=" %%i in ('Powershell -Nop -C "(Get-Content "!cCfg!"|ConvertFrom-Json).'ws-server'.host"') do set "vHost=%%~i"
 	if "!vHost:~0,1!"==" " set "vHost=!vHost:~1!"
 	if "!vHost!"=="" set "vHost=localhost"
 	if "!vHost!"=="0.0.0.0" set "vHost=localhost"
 
 	set "vPort="
-	for /f "delims=" %%i in ('Powershell -Nop -C "(Get-Content "%cCfg%"|ConvertFrom-Json).'ws-server'.port"') do set "vPort=%%~i"
+	for /f "delims=" %%i in ('Powershell -Nop -C "(Get-Content "!cCfg!"|ConvertFrom-Json).'ws-server'.port"') do set "vPort=%%~i"
 	if "!vPort:~0,1!"==" " set "vPort=!vPort:~1!"
 	if "!vPort!"=="" set "vPort=8080"
 
@@ -81,7 +81,7 @@ for /f "tokens=1" %%i In ('tasklist /nh /fi "imagename eq %cBob%"') do set "vBob
 if /i "%cBob%"=="!vBob!" (
 REM	echo   html=!vHtml!
 	echo Server is running ^(PRESS A KEY TO STOP IT^)...
-	echo Opening TW5-Bob page ^(first connection may take a while^)...
+	echo Opening TW5-Bob page ^(10s^)...
 	echo;
 	rem Wait for Bob to initialize and get ready to accept connection
 	timeout /t 10 /nobreak >nul
